@@ -1,0 +1,108 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Güngör Budak
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: shouty 0.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-07-16 23:33+0300\n"
+"PO-Revision-Date: 2014-07-16 23:43+0200\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Eazy Po 0.9.5.1\n"
+
+#: shouty.php:50
+msgctxt "post type general name"
+msgid "Shouts"
+msgstr "Shouts"
+
+#: shouty.php:51
+msgctxt "post type singular name"
+msgid "Shout"
+msgstr "Shout"
+
+#: shouty.php:52
+msgctxt "admin menu"
+msgid "Shouts"
+msgstr "Shouts"
+
+#: shouty.php:53
+msgctxt "add new on admin bar"
+msgid "Shout"
+msgstr "Shout"
+
+#: shouty.php:54
+msgctxt "book"
+msgid "Add New"
+msgstr "Add New"
+
+#: shouty.php:55
+msgid "Add New Shout"
+msgstr "Add New Shout"
+
+#: shouty.php:56
+msgid "New Shout"
+msgstr "New Shout"
+
+#: shouty.php:57
+msgid "Edit Shout"
+msgstr "Edit Shout"
+
+#: shouty.php:58
+msgid "View Shout"
+msgstr "View Shout"
+
+#: shouty.php:59
+msgid "All Shouts"
+msgstr "All Shouts"
+
+#: shouty.php:60
+msgid "Search Shouts"
+msgstr "Search Shouts"
+
+#: shouty.php:61
+msgid "Parent Shouts:"
+msgstr "Parent Shouts:"
+
+#: shouty.php:62
+msgid "No shouts found."
+msgstr "No shouts found."
+
+#: shouty.php:63
+msgid "No shouts found in Trash."
+msgstr "No shouts found in Trash."
+
+#: shouty.php:111
+msgid "Enter your shout here"
+msgstr "Enter your shout here"
+
+#: shouty.php:111
+msgid "Share"
+msgstr "Share"
+
+#: shouty.php:114
+msgid "Log in or create a new account to share shouts"
+msgstr "Log in or create a new account to share shouts"
+
+#: shouty.php:116
+msgid "Shouts"
+msgstr "Shouts"
+
+#: shouty.php:119
+msgid "Show more"
+msgstr "Show more"
+
+#: shouty.php:186
+msgid "No more shouts"
+msgstr "No more shouts"
+
+#: shouty.php:214
+msgid "Read more & comment"
+msgstr "Read more & comment"

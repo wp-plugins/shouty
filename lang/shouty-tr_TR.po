@@ -1,0 +1,108 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Güngör Budak
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: shouty 0.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-07-16 23:33+0300\n"
+"PO-Revision-Date: 2014-07-16 23:53+0200\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Eazy Po 0.9.5.1\n"
+
+#: shouty.php:50
+msgctxt "post type general name"
+msgid "Shouts"
+msgstr "İletiler"
+
+#: shouty.php:51
+msgctxt "post type singular name"
+msgid "Shout"
+msgstr "İleti"
+
+#: shouty.php:52
+msgctxt "admin menu"
+msgid "Shouts"
+msgstr "İletiler"
+
+#: shouty.php:53
+msgctxt "add new on admin bar"
+msgid "Shout"
+msgstr "İleti"
+
+#: shouty.php:54
+msgctxt "book"
+msgid "Add New"
+msgstr "Yeni Ekle"
+
+#: shouty.php:55
+msgid "Add New Shout"
+msgstr "Yeni İleti Ekle"
+
+#: shouty.php:56
+msgid "New Shout"
+msgstr "Yeni İleti"
+
+#: shouty.php:57
+msgid "Edit Shout"
+msgstr "İleti Düzenle"
+
+#: shouty.php:58
+msgid "View Shout"
+msgstr "İleti Görüntüle"
+
+#: shouty.php:59
+msgid "All Shouts"
+msgstr "Tüm İletiler"
+
+#: shouty.php:60
+msgid "Search Shouts"
+msgstr "İletileri Ara"
+
+#: shouty.php:61
+msgid "Parent Shouts:"
+msgstr "Üst İletiler:"
+
+#: shouty.php:62
+msgid "No shouts found."
+msgstr "İleti bulunamadı."
+
+#: shouty.php:63
+msgid "No shouts found in Trash."
+msgstr "Çöpte ileti yok."
+
+#: shouty.php:111
+msgid "Enter your shout here"
+msgstr "İletini buraya gir"
+
+#: shouty.php:111
+msgid "Share"
+msgstr "Paylaş"
+
+#: shouty.php:114
+msgid "Log in or create a new account to share shouts"
+msgstr "İleti paylaşmak için giriş yap ya da yeni bir hesap oluştur"
+
+#: shouty.php:116
+msgid "Shouts"
+msgstr "İletiler"
+
+#: shouty.php:119
+msgid "Show more"
+msgstr "Daha fazla göster"
+
+#: shouty.php:186
+msgid "No more shouts"
+msgstr "Daha fazla ileti yok"
+
+#: shouty.php:214
+msgid "Read more & comment"
+msgstr "Daha fazla oku & yorumla"
