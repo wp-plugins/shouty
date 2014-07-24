@@ -142,25 +142,28 @@ function shouty_share() {
 		get_currentuserinfo();
 		$title = trim(sanitize_text_field(html_entity_decode($_POST['textarea'], ENT_QUOTES, 'UTF-8')));
 		$title = (strlen($title) > 50) ? substr($title, 0, 50).'...' : $title;
-		$content = wp_kses((string)html_entity_decode($_POST['textarea'], ENT_QUOTES, 'UTF-8'), $allowed_html);
+		$content = wp_kses((string)html_entity_decode(trim($_POST['textarea']), ENT_QUOTES, 'UTF-8'), $allowed_html);
 		$title = wptexturize($title);
 		$content = wptexturize($content);
-		$content = shouty_make_links(nl2br($content));
-		$new_shout = array(
-			'post_title' => $title,
-			'post_content' => $content,
-			'post_status' => 'publish',
-			'post_type' => 'shout',
-			'post_author' => $current_user->ID
-			);
-		$shout_id = wp_insert_post( $new_shout );
-		/*
-		 * Gets user avatar and sets it as
-		 * featured image to the shout
-		 */
-		$user_avatar_url = shouty_get_avatar_url($current_user->ID, 400);
-		$user_avatar_id = shouty_set_attachment($user_avatar_url, $shout_id);
-		set_post_thumbnail( $shout_id, $user_avatar_id );
+		// If content is given, proceed
+		if (empty($content) === false) {
+			$content = shouty_make_links(nl2br($content));
+			$new_shout = array(
+				'post_title' => $title,
+				'post_content' => $content,
+				'post_status' => 'publish',
+				'post_type' => 'shout',
+				'post_author' => $current_user->ID
+				);
+			$shout_id = wp_insert_post( $new_shout );
+			/*
+			 * Gets user avatar and sets it as
+			 * featured image to the shout
+			 */
+			$user_avatar_url = shouty_get_avatar_url($current_user->ID, 400);
+			$user_avatar_id = shouty_set_attachment($user_avatar_url, $shout_id);
+			set_post_thumbnail( $shout_id, $user_avatar_id );
+		}
 
 		/*
 		 * Gets latest shouts and echoes
