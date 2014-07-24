@@ -50,6 +50,9 @@ Absolutely.
 
 == Changelog ==
 
+= 0.0.2 =
+Bug fixed: you could send an empty shout
+
 = 0.0.1 =
 First release
 
