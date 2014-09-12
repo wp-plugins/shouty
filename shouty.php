@@ -3,7 +3,7 @@
  * Plugin Name: Shouty
  * Plugin URI: http://www.gungorbudak.com/shouty
  * Description: Shouty is a shoutbox that makes your Wordpress site more shoutable.
- * Version: 0.0.2
+ * Version: 0.0.3
  * Author: Gungor Budak
  * Author URI: http://www.gungorbudak.com
  * License: GPL2
