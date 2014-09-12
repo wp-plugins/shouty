@@ -51,6 +51,9 @@ Absolutely.
 
 == Changelog ==
 
+= 0.0.3 =
+WP 4.0 compatibility has been checked and Serbian translations have been added
+
 = 0.0.2 =
 Bug fixed: you could send an empty shout
 
