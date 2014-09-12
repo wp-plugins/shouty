@@ -3,7 +3,7 @@ Contributors: gungorbudak
 Tags: AJAX, shoutbox, contact, comments, shortcode, widget, sidebar, page, Post, posts, honeypot
 Donate link: http://www.gungorbudak.com
 Requires at least: 2.7
-Tested up to: 3.9.1
+Tested up to: 4.0
 Stable tag: 0.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -24,7 +24,8 @@ Shouty (shoutbox) is a Wordpress plugin for you to receive messages from your us
 * messages_users_avatar_size (in px; default: 32; Changes size of the user avatar on the left of the each shout)
 * look (post | widget; default: post; Switches looks - widget look is more compact)
 
-The plugin is written in English and has been translated into Turkish. You're welcomed if you want to translate it into your language. Use translations.pot, rename it as shouty-LANGCODE.po (e.g. shouty-tr_TR) and open it in Poedit. Translate and save. There should be a MO file created by Poedit. Send PO and MO files to me, then I will add them in the next release.
+The plugin is written in English and has been translated into Turkish by [myself](http:/www.gungorbudak.com/ "Güngör Budak")
+. Serbian (by [Ogi Djuraskovic](http://firstsiteguide.com/ "First Site Guide")) translations are also available. You're welcomed if you want to translate it into your language. Use translations.pot, rename it as shouty-LANGCODE.po (e.g. shouty-tr_TR) and open it in Poedit. Translate and save. There should be a MO file created by Poedit. Send PO and MO files to me, then I will add them in the next release.
 
 == Installation ==
 
