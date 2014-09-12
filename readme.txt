@@ -4,7 +4,7 @@ Tags: AJAX, shoutbox, contact, comments, shortcode, widget, sidebar, page, Post,
 Donate link: http://www.gungorbudak.com
 Requires at least: 2.7
 Tested up to: 4.0
-Stable tag: 0.0.2
+Stable tag: 0.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -50,6 +50,9 @@ Absolutely.
 5. Individual shout
 
 == Changelog ==
+
+= 0.0.3 =
+WP 4.0 compatibility has been checked and Serbian translations have been added
 
 = 0.0.2 =
 Bug fixed: you could send an empty shout
