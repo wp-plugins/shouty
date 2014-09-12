@@ -1,0 +1,107 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Güngör Budak
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: shouty 0.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-07-16 23:33+0300\n"
+"PO-Revision-Date: 2014-09-04 10:07+0100\n"
+"Last-Translator: Borisa Djuraskovic <borisad@webhostinghub.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 1.5.7\n"
+
+#: shouty.php:50
+msgctxt "post type general name"
+msgid "Shouts"
+msgstr "Shouts"
+
+#: shouty.php:51
+msgctxt "post type singular name"
+msgid "Shout"
+msgstr "Shout"
+
+#: shouty.php:52
+msgctxt "admin menu"
+msgid "Shouts"
+msgstr "Shouts"
+
+#: shouty.php:53
+msgctxt "add new on admin bar"
+msgid "Shout"
+msgstr "Shout"
+
+#: shouty.php:54
+msgctxt "book"
+msgid "Add New"
+msgstr "Dodaj novi"
+
+#: shouty.php:55
+msgid "Add New Shout"
+msgstr "Dodaj novi Shout"
+
+#: shouty.php:56
+msgid "New Shout"
+msgstr "Novi Shout"
+
+#: shouty.php:57
+msgid "Edit Shout"
+msgstr "Uredi Shout"
+
+#: shouty.php:58
+msgid "View Shout"
+msgstr "Vidi Shout"
+
+#: shouty.php:59
+msgid "All Shouts"
+msgstr "Svi Shout-i"
+
+#: shouty.php:60
+msgid "Search Shouts"
+msgstr "Pretraži shout-e "
+
+#: shouty.php:61
+msgid "Parent Shouts:"
+msgstr "Nadređeni shout-i"
+
+#: shouty.php:62
+msgid "No shouts found."
+msgstr "Nisu pronađeni shout-i."
+
+#: shouty.php:63
+msgid "No shouts found in Trash."
+msgstr "Nisu pronađeni shout-i u korpi za otpatke."
+
+#: shouty.php:111
+msgid "Enter your shout here"
+msgstr "Ovde unesite svoj shout"
+
+#: shouty.php:111
+msgid "Share"
+msgstr "Podeli"
+
+#: shouty.php:114
+msgid "Log in or create a new account to share shouts"
+msgstr "Prijavite se da biste kreirali novi nalog za deljenje shout-a."
+
+#: shouty.php:116
+msgid "Shouts"
+msgstr "Shouts"
+
+#: shouty.php:119
+msgid "Show more"
+msgstr "Prikaži još"
+
+#: shouty.php:186
+msgid "No more shouts"
+msgstr "Nema više shout-a."
+
+#: shouty.php:214
+msgid "Read more & comment"
+msgstr "Pročitajte više i komentarišite"
