@@ -4,7 +4,7 @@ Tags: AJAX, shoutbox, contact, comments, shortcode, widget, sidebar, page, Post,
 Donate link: http://www.gungorbudak.com
 Requires at least: 2.7
 Tested up to: 4.0
-Stable tag: 0.0.3
+Stable tag: 0.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -25,7 +25,7 @@ Shouty (shoutbox) is a Wordpress plugin for you to receive messages from your us
 * look (post | widget; default: post; Switches looks - widget look is more compact)
 
 The plugin is written in English and has been translated into Turkish by [myself](http:/www.gungorbudak.com/ "Güngör Budak")
-. Serbian (by [Ogi Djuraskovic](http://firstsiteguide.com/ "First Site Guide")) translations are also available. You're welcomed if you want to translate it into your language. Use translations.pot, rename it as shouty-LANGCODE.po (e.g. shouty-tr_TR) and open it in Poedit. Translate and save. There should be a MO file created by Poedit. Send PO and MO files to me, then I will add them in the next release.
+. German (by [Pascal Jordin](http://www.jordin.eu/ "Pascal Jordin")) and Serbian (by [Ogi Djuraskovic](http://firstsiteguide.com/ "First Site Guide")) translations are also available. You're welcomed if you want to translate it into your language. Use translations.pot, rename it as shouty-LANGCODE.po (e.g. shouty-tr_TR) and open it in Poedit. Translate and save. There should be a MO file created by Poedit. Send PO and MO files to me, then I will add them in the next release.
 
 == Installation ==
 
@@ -50,6 +50,9 @@ Absolutely.
 5. Individual shout
 
 == Changelog ==
+
+= 0.0.4 =
+German translations have been added
 
 = 0.0.3 =
 WP 4.0 compatibility has been checked and Serbian translations have been added
