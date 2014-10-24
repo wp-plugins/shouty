@@ -14,29 +14,9 @@
 	margin: 0 0 20px 0;
 }
 
-.shouty-user-avatar,
-.shouty-user-avatar-widget {
-	margin-right: 10px;
-}
-
-.shouty-user-avatar-widget {
-	float: left;
-}
-
-.shouty-user-avatar img,
-.shouty-user-avatar-widget img {
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-}
-
 .shouty-user-display-name {
 	font-size: 16px;
 	font-weight: bold;
-}
-
-.shouty-email {
-	display: none !important;
 }
 
 .shouty-textarea {
@@ -65,24 +45,55 @@
 	float: right;
 }
 
+.shouty-messages-title {
+	font-size: 1.25em;
+}
+
+.shouty-user-avatar,
+.shouty-user-avatar-widget {
+	margin-right: 10px;
+}
+
+.shouty-user-avatar-widget {
+	float: left;
+}
+
+.shouty-user-avatar img,
+.shouty-user-avatar-widget img {
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
 .shouty-message {
 	display: block;
 	margin-bottom: 40px;
 }
 
-.shouty-messages-title {
-	font-size: 1.25em;
-}
-
-.shouty-messages-content {
+.shouty-message-widget {
 	display: block;
 	margin: 10px 0;
 }
 
-.shouty-messages-content-title {
+.shouty-message-content {
+	display: block;
+	margin: 10px 0;
+}
+
+.shouty-message-content-widget {
 
 }
 
-.shouty-button-more {
+.shouty-hidden {
+	display: none !important;
+	visibility: hidden;
+}
 
+.shouty-button-disabled, .shouty-button-more-disabled {
+	pointer-events: none;
+	cursor: not-allowed;
+}
+
+.shouty-no-more {
+	margin: 0;
 }

@@ -3,7 +3,7 @@
  * Plugin Name: Shouty
  * Plugin URI: http://www.gungorbudak.com/shouty
  * Description: Shouty is a shoutbox that makes your Wordpress site more shoutable.
- * Version: 0.0.4
+ * Version: 0.1.0
  * Author: Gungor Budak
  * Author URI: http://www.gungorbudak.com
  * License: GPL2
@@ -28,10 +28,10 @@
 
 add_action( 'init', 'shouty_localization_init' );
 add_action( 'init', 'shouty_post_type_init' );
+add_action( 'init', 'shouty_taxonomy_init');
 add_action( 'wp_enqueue_scripts', 'shouty_enqueue' );
 add_action( 'wp_ajax_shouty_share', 'shouty_share' );
 add_action( 'wp_ajax_shouty_show_more', 'shouty_show_more' );
-add_shortcode( 'shouty', 'shouty_short_code' );
 
 $allowed_html = array();
 
@@ -70,15 +70,37 @@ function shouty_post_type_init() {
 		'show_ui'            => true,
 		'show_in_menu'       => true,
 		'query_var'          => true,
-		'rewrite'            => array( 'slug' => 'shout' ),
+		'rewrite'            => array( 'slug' => 'shout', 'with_front' => false ),
 		'capability_type'    => 'post',
 		'has_archive'        => true,
 		'hierarchical'       => false,
 		'menu_position'      => null,
+		'taxonomies'		 => array('shout_category'),
 		'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' )
 	);
 
 	register_post_type( 'shout', $args );
+}
+
+/*
+* Shouty create custom taxonomy
+*/
+
+function shouty_taxonomy_init() {
+	register_taxonomy(
+		'shout_category',
+		'shout',
+		array(
+			'hierarchical'        => true,
+			'label'               => __('Categories'),
+			'query_var'           => true,
+			'show_admin_column'   => true,
+			'rewrite'             => array(
+				'slug'            => 'shout-category',
+				'with_front'      => true
+				)
+			)
+	);
 }
 
 /*
@@ -94,33 +116,59 @@ function shouty_enqueue() {
  * [shouty] short code
  */
 function shouty_short_code( $atts ) {
+
 	$a = shortcode_atts( array(
+		'category' => '',
+		'look' => 'post',
 		'user' => 'show',
 		'user_avatar_size' => 64,
 		'form' => 'show',
+		'messages' => 'show',
 		'messages_title' => 'show',
 		'messages_number' => 10,
 		'messages_users_avatar_size' => 32,
-		'look' => 'post'
+		'show_more_button' => 'show'
 		), $atts, 'shouty' );
+
 	// Don't show user and form if not logged in
 	if ( is_user_logged_in() ) {
+
 		global $current_user;
 		get_currentuserinfo();
-		$user = ($a['user'] == 'show') ? '<p class="shouty-user"><span class="shouty-user-avatar">' . get_avatar($current_user->ID, $a['user_avatar_size']) . '</span><span class="shouty-user-display-name">' . $current_user->display_name . '</span></p>' : '';
-		$form = ($a['form'] == 'show') ? '<form class="group"><input class="shouty-email" type="email" name="email" value=""><textarea class="shouty-textarea" name="text" placeholder="' . __('Enter your shout here', 'shouty') . '"></textarea><input class="shouty-button" type="submit" value="' . __('Share', 'shouty') . '"></form>' : '';
-		$sharing = $user . $form;
-		} else {
-			$sharing = ($a['form'] == 'show') ? '<p><a href="'. get_bloginfo('url') . '/wp-login.php" target="_blank">' . __('Log in or create a new account to share shouts', 'shouty') . '</a></p>' : '';
+		$shouty = '<span class="shouty-options shouty-hidden" data-category="'. $a['category'] .'" data-look="'. $a['look'] .'" data-messages-number="'. $a['messages_number'] .'" data-messages-users-avatar-size="'. $a['messages_users_avatar_size'] .'" data-messages="'. $a['messages'] .'" data-count="1"></span>';
+		if ($a['user'] == 'show') {
+			$shouty .= '<p class="shouty-user"><span class="shouty-user-avatar">' . get_avatar($current_user->ID, $a['user_avatar_size']) . '</span><span class="shouty-user-display-name">' . $current_user->display_name . '</span></p>';
 		}
-	$messages_title = ($a['messages_title'] == 'show') ? '<h2 class="shouty-messages-title">' . __('Shouts', 'shouty') . '</h2>' : '';
-	$messages = ( $a['look'] == 'post' ) ? '<div class="shouty-messages">' . $messages_title : '<div>';
-	$shouts = shouty_get($a['messages_number'], 0, $a['messages_users_avatar_size'], $a['look']);
-	$messages .= (empty($shouts) === false) ? $shouts . '</div>' : __('No shouts found.', 'shouty') . '</div>';
-	if (empty($shouts) === false) if ( $a['look'] == 'post' ) $messages .= '<a href="#" class="shouty-button-more">' . __('Show more', 'shouty') . '</a>';
-	$content = $sharing . $messages;
-	return $content;
+		if ($a['form'] == 'show') {
+			$shouty .= '<form class="group"><input class="shouty-email shouty-hidden" type="email" name="email" value=""><textarea class="shouty-textarea" name="text" placeholder="' . __('Enter your shout here', 'shouty') . '"></textarea><input class="shouty-button" type="submit" value="' . __('Share', 'shouty') . '"></form>';
+		}
+
+	} else {
+		$shouty .= ($a['form'] == 'show') ? '<p><a href="'. get_bloginfo('url') . '/wp-login.php" target="_blank">' . __('Log in or create a new account to share shouts', 'shouty') . '</a></p>' : '';
+	}
+
+	if ($a['messages_title'] == 'show') {
+		$shouty .= '<h2 class="shouty-messages-title">' . __('Shouts', 'shouty') . '</h2>';
+	}
+
+	if ($a['messages'] == 'show') {
+		$shouty .= '<div class="shouty-messages">';
+		$shouts = shouty_get($a['category'], $a['messages_number'], 0, $a['messages_users_avatar_size'], $a['look']);
+		if (empty($shouts) === false) {
+			$shouty .= $shouts;
+		} else {
+			$shouty .= __('No shouts found.', 'shouty');
+		}
+		$shouty .= '</div>';
+	}
+
+	if ($a['show_more_button'] == 'show') {
+		$shouty .= '<a href="#" class="shouty-button-more">'. __('Show more', 'shouty') .'</a>';
+	}
+
+	return $shouty;
 }
+add_shortcode( 'shouty', 'shouty_short_code' );
 
 /*
  * Share a shout via AJAX call
@@ -143,11 +191,18 @@ function shouty_share() {
 		$title = trim(sanitize_text_field(html_entity_decode($_POST['textarea'], ENT_QUOTES, 'UTF-8')));
 		$title = (strlen($title) > 50) ? substr($title, 0, 50).'...' : $title;
 		$content = wp_kses((string)html_entity_decode(trim($_POST['textarea']), ENT_QUOTES, 'UTF-8'), $allowed_html);
+		$category = trim(sanitize_text_field(html_entity_decode($_POST['category'], ENT_QUOTES, 'UTF-8')));
 		$title = wptexturize($title);
 		$content = wptexturize($content);
+		$category = wptexturize($category);
 		// If content is given, proceed
 		if (empty($content) === false) {
 			$content = shouty_make_links(nl2br($content));
+			if (empty($category) === false) {
+				$category_object = get_term_by( 'slug', $category, 'shout_category' );
+				$category_id = (int)$category_object->term_id;
+			}
+
 			$new_shout = array(
 				'post_title' => $title,
 				'post_content' => $content,
@@ -156,21 +211,15 @@ function shouty_share() {
 				'post_author' => $current_user->ID
 				);
 			$shout_id = wp_insert_post( $new_shout );
-			/*
-			 * Gets user avatar and sets it as
-			 * featured image to the shout
-			 */
-			$user_avatar_url = shouty_get_avatar_url($current_user->ID, 400);
-			$user_avatar_id = shouty_set_attachment($user_avatar_url, $shout_id);
-			set_post_thumbnail( $shout_id, $user_avatar_id );
+			$cat_ids = wp_set_object_terms( $shout_id, array($category_id), 'shout_category', true );
 		}
 
-		/*
-		 * Gets latest shouts and echoes
-		 * messages_users_avatar_size from short code here
-		 * is NOT dynamic
-		 */
-		$latest_shouts = shouty_get(10, 0, 32, 'post');
+		$messages_number = (int)$_POST['messages_number'];
+		$messages_users_avatar_size = (int)$_POST['messages_users_avatar_size'];
+		$look = trim(sanitize_text_field(html_entity_decode($_POST['look'], ENT_QUOTES, 'UTF-8')));
+		$look = wptexturize($look);
+
+		$latest_shouts = shouty_get($category, $messages_number, 0, $messages_users_avatar_size, $look);
 		echo $latest_shouts;
 		die();		
 	}
@@ -181,24 +230,27 @@ function shouty_share() {
  */
 
 function shouty_show_more() {
-	$offset = (int)$_POST['offset'];
-	/*
-	 * messages_users_avatar_size from shortcode here
-	 * is NOT dynamic
-	 */
-	$shouts = shouty_get(10, $offset, 32, 'post');
-	echo ( empty($shouts) === false ) ? $shouts : '<p>'. __('No more shouts', 'shouty') .'</p>';
+	$messages_number = (int)$_POST['messages_number'];
+	$messages_users_avatar_size = (int)$_POST['messages_users_avatar_size'];
+	$factor = (int)$_POST['factor'];
+	$category = sanitize_text_field(html_entity_decode($_POST['category'], ENT_QUOTES, 'UTF-8'));
+	$look = sanitize_text_field(html_entity_decode($_POST['look'], ENT_QUOTES, 'UTF-8'));
+	$category = wptexturize($category);
+	$look = wptexturize($look);
+
+	$shouts = shouty_get($category, $messages_number, $factor*$messages_number, $messages_users_avatar_size, $look);
+	echo (empty($shouts) === false) ? $shouts : '<p class="shouty-no-more">'. __('No more shouts', 'shouty') .'</p>';
 	die();
 }
 
 /*
  * Get shouts
  */
-function shouty_get( $posts_per_page, $offset, $messages_users_avatar_size, $look ) {
+function shouty_get( $category, $posts_per_page, $offset, $messages_users_avatar_size, $look ) {
 	$args = array(
 		'posts_per_page'   => $posts_per_page,
 		'offset'           => $offset,
-		'category'         => '',
+		'shout_category'   => $category,
 		'orderby'          => 'post_date',
 		'order'            => 'DESC',
 		'include'          => '',
@@ -214,63 +266,28 @@ function shouty_get( $posts_per_page, $offset, $messages_users_avatar_size, $loo
 	$shouts = get_posts( $args );
 
 	if (empty($shouts) === false) {
-		$return_shouts = '';
+		$shouts_list = '';
 		foreach ($shouts as $shout) {
 			$user = get_userdata( $shout->post_author );
-			$return_shouts .= ($look == 'post') ? '<p class="shouty-message"><span class="shouty-user-avatar">' . get_avatar($user->ID, $messages_users_avatar_size) . '</span><strong>' . $user->display_name . '</strong><span class="shouty-messages-content">' . $shout->post_content . '</span>' . get_the_date('j M, H:i', $shout->ID) . ' &ndash; <a href="' . get_permalink( $shout->ID ) . '">' . __('Read more & comment', 'shouty') . ' &rarr;</a></p>' : '<div class="shouty-messages-content group"><div class="shouty-user-avatar-widget">' . get_avatar($user->ID, $messages_users_avatar_size) . '</div><div class="shouty-messages-content-title"><a href="' . get_permalink( $shout->ID ) . '">' . $shout->post_title . '</a><br>' . get_the_date('j M, H:i', $shout->ID) . '</div></div>';
+			if ($look == 'post') {
+				$shouts_list .= '<div class="shouty-message">';
+				$shouts_list .= '<span class="shouty-user-avatar">'. get_avatar($user->ID, $messages_users_avatar_size) .'</span>';
+				$shouts_list .= '<strong>'. $user->display_name .'</strong>';
+				$shouts_list .= '<span class="shouty-message-content">'. $shout->post_content .'</span>';
+				$shouts_list .= '<span>'. get_the_date('j M, H:i', $shout->ID) . ' &ndash; <a href="'. get_permalink( $shout->ID ) . '">' . __('Read more & comment', 'shouty') . ' &rarr;</a></span>';
+				$shouts_list .= '</div>';
+			} elseif ($look == 'widget') {
+				$shouts_list .= '<div class="shouty-message-widget group">';
+				$shouts_list .= '<span class="shouty-user-avatar-widget">'. get_avatar($user->ID, $messages_users_avatar_size) .'</span>';
+				$shouts_list .= '<span class="shouty-message-content-widget"><a href="' . get_permalink( $shout->ID ) . '">' . $shout->post_title . '</a><br>' . get_the_date('j M, H:i', $shout->ID) . '</span>';
+				$shouts_list .= '</div>';
+			}
 		}
-		return $return_shouts;
+		return $shouts_list;
 	} else {
-		return '';
+		return null;
 	}
 
-}
-
-function shouty_get_avatar_url( $user_id, $size ) {
-	/*
-	 * Adapted from http://wordpress.stackexchange.com/a/139185
-	 */
-    $get_avatar = get_avatar( $user_id, $size );
-    preg_match("/src='(.*?)'/i", $get_avatar, $matches);
-    $pieces = explode('&', $matches[1]);
-    $subpieces = explode('?', $pieces[0]);
-    return ( $subpieces[0].'.jpg?'.$subpieces[1] );
-}
-
-function shouty_set_attachment($user_avatar_url, $shout_id) {
-	/*
-	 * Adapted from http://www.wpexplorer.com/wordpress-featured-image-url/
-	 */
-	$image_url  = $user_avatar_url;
-	$upload_dir = wp_upload_dir();
-	$image_data = file_get_contents($image_url);
-	$filename   = basename($image_url);
-	$filename_pieces = explode('?', $filename);
-	$filename = $filename_pieces[0]; // This is done to get rid of '?s=$size' from the URL
-	$wp_filetype = wp_check_filetype( $filename, null );
-
-	if ( wp_mkdir_p( $upload_dir['path'] ) ) {
-    	$file = $upload_dir['path'] . '/' . $filename;
-	} else {
-		$file = $upload_dir['basedir'] . '/' . $filename;
-	}
-
-	file_put_contents( $file, $image_data );
-
-	$attachment = array(
-		'post_mime_type' => $wp_filetype['type'],
-		'post_title'     => sanitize_file_name( $filename ),
-		'post_content'   => '',
-		'post_status'    => 'inherit'
-	);
-
-	$attach_id = wp_insert_attachment( $attachment, $file, $shout_id );
-
-	require_once(ABSPATH . 'wp-admin/includes/image.php');
-	$attach_data = wp_generate_attachment_metadata( $attach_id, $file );
-	wp_update_attachment_metadata( $attach_id, $attach_data );
-
-	return $attach_id;
 }
 
 function shouty_make_links( $url ) {
