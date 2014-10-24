@@ -25,7 +25,7 @@ Insert the shortcode below into any post/page or widget.
 * category (category-slug | default: empty; Filters shouts to a category)
 * look (post | widget; default: post; Switches looks - widget look is more compact)
 * user (show | hide; default: show; Displays user information at the top of the form)
-* user_avatar_size (in px; default: 64px; Changes size of the user avatar in user information)
+* user_avatar_size (in px; default: 64; Changes size of the user avatar in user information)
 * form (show | hide; default: show; Displays Shouty form and the share button)
 * messages_title (show | hide; default: show; Displays a title at the tops of the shouts)
 * messages (show | hide; default: show; Displays shouts)
