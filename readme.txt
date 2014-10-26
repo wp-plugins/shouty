@@ -1,7 +1,7 @@
 === Shouty ===
 Contributors: gungorbudak
 Tags: AJAX, shoutbox, contact, comments, shortcode, widget, sidebar, page, Post, posts, honeypot
-Donate link: http://www.gungorbudak.com
+Donate link: http://www.gungorbudak.com/buy-me-a-coffee
 Requires at least: 2.7
 Tested up to: 4.0
 Stable tag: 0.1.0
@@ -31,7 +31,7 @@ Insert the shortcode below into any post/page or widget.
 * messages (show | hide; default: show; Displays shouts)
 * messages_number (a number; default: 10; The number of shouts to be viewed in one time)
 * messages_users_avatar_size (in px; default: 32; Changes size of the user avatar on the left of the each shout)
-* show_more_button (show | hide; default: show; default: 32; Displays show more button at the end of the shouts)
+* show_more_button (show | hide; default: show; Displays show more button at the end of the shouts)
 
 The plugin is written in English and has been translated into Turkish by [myself](http:/www.gungorbudak.com/ "Güngör Budak")
 . German (by [Pascal Jordin](http://www.jordin.eu/ "Pascal Jordin")) and Serbian (by [Ogi Djuraskovic](http://firstsiteguide.com/ "First Site Guide")) translations are also available. You're welcomed if you want to translate it into your language. Use translations.pot, rename it as shouty-LANGCODE.po (e.g. shouty-tr_TR) and open it in Poedit. Translate and save. There should be a MO file created by Poedit. Send PO and MO files to me, then I will add them in the next release.
