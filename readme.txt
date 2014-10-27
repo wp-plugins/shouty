@@ -12,7 +12,7 @@ Shouty is a shoutbox powered by AJAX that you can add anywhere using shortcode w
 
 == Description ==
 
-Shouty (shoutbox) is a Wordpress plugin for you to receive messages from your users. It creates a custom post type called "shout" which will allow you to administer shouts from the Dashboard as you do for the default post types. You can add Shouty in a post, page or a widget using its shortcode. The shortcode has certain options for you to customize the look and function of the Shouty. Shouty also creates a custom category option which can be used to create multiple shoutboxes on your website. To do that, you should first create a category, then set it in the shortcode. Shouty shares messages using AJAX and protects your blog using Honeypot spam protection technique. Users must log in to share shouts. It doesn't accept any HTML but http and https links are converted to a tags when the shout is shared. You don't have to worry about unclickable links.
+Shouty (shoutbox) is a Wordpress plugin for you to receive messages from your users. It creates a custom post type called "shout" which will allow you to administer shouts from the Dashboard as you do for the default post types. You can add Shouty in a post, page or a widget using its shortcode. The shortcode has certain options for you to customize the look and function of the Shouty. Shouty also creates a custom category option which can be used to create multiple shoutboxes on your website. To do that, you should first create a category, then set it in the shortcode. Shouty shares messages using AJAX and protects your blog using Honeypot spam protection technique. Users must log in to share shouts. It doesn't accept any HTML but http and https links are converted to `<a>` tags when the shout is shared. You don't have to worry about unclickable links.
 
 **How to use Shouty**
 
@@ -22,7 +22,7 @@ Insert the shortcode below into any post/page or widget.
 
 **Options you can set for the shortcode**
 
-* category (category-slug; default: empty; Filters shouts to a category)
+* category (category-slug; default: empty; Limits shout viewing and posting to a previously created shout category)
 * look (post | widget; default: post; Switches looks - widget look is more compact)
 * user (show | hide; default: show; Displays user information at the top of the form)
 * user_avatar_size (in px; default: 64; Changes size of the user avatar in user information)
