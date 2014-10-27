@@ -22,7 +22,7 @@ Insert the shortcode below into any post/page or widget.
 
 **Options you can set for the shortcode**
 
-* category (category-slug | default: empty; Filters shouts to a category)
+* category (category-slug; default: empty; Filters shouts to a category)
 * look (post | widget; default: post; Switches looks - widget look is more compact)
 * user (show | hide; default: show; Displays user information at the top of the form)
 * user_avatar_size (in px; default: 64; Changes size of the user avatar in user information)
