@@ -61,7 +61,7 @@ Absolutely.
 == Changelog ==
 
 = 0.1.1 =
-In WP 4.0, the shortcode in text widgets were not working since 0.1.0, this has been fixed in this version.
+In WP 4.0, the shortcode in text widgets was not working after 0.1.0, this has been fixed in this version.
 
 = 0.1.0 =
 Shouty no longer sets user avatar as featured image – this option will be reconsidered in next releases. Now shouts can be categorized and in this way you can have multiple shoutboxes on your website. Just don't forget to create a category first and include in the shortcode Sharing shouts and pagination have been improved. Sharing shouts from widgets is now possible. Every functionality is avaliable for post/page look as well as widget look. You can also now use all attributes of shortcode dynamically. You can also now hide show more button.
