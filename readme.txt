@@ -34,7 +34,7 @@ Insert the shortcode below into any post/page or widget.
 * show_more_button (show | hide; default: show; Displays show more button at the end of the shouts)
 
 The plugin is written in English and has been translated into Turkish by [myself](http:/www.gungorbudak.com/ "Güngör Budak")
-. German (by [Pascal Jordin](http://www.jordin.eu/ "Pascal Jordin")) and Serbian (by [Ogi Djuraskovic](http://firstsiteguide.com/ "First Site Guide")) translations are also available. You're welcomed if you want to translate it into your language. Use translations.pot, rename it as shouty-LANGCODE.po (e.g. shouty-tr_TR) and open it in Poedit. Translate and save. There should be a MO file created by Poedit. Send PO and MO files to me, then I will add them in the next release.
+. German (by [Pascal Jordin](http://www.jordin.eu/ "Pascal Jordin")), Serbian (by [Ogi Djuraskovic](http://firstsiteguide.com/ "First Site Guide")) and Spanish (by [Andrew Kurtis](http://www.webhostinghub.com/ "WebHostingHub")) translations are also available. You're welcomed if you want to translate it into your language. Use translations.pot, rename it as shouty-LANGCODE.po (e.g. shouty-tr_TR) and open it in Poedit. Translate and save. There should be a MO file created by Poedit. Send PO and MO files to me, then I will add them in the next release.
 
 == Installation ==
 
