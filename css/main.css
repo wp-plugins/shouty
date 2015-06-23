@@ -2,7 +2,7 @@
 .group:after {
     content: "";
     display: table;
-} 
+}
 .group:after {
     clear: both;
 }
@@ -11,73 +11,73 @@
 }
 
 .shouty-user {
-	margin: 0 0 20px 0;
+    margin: 0 0 20px 0;
 }
 
 .shouty-user-display-name {
-	font-size: 16px;
-	font-weight: bold;
+    font-size: 16px;
+    font-weight: bold;
 }
 
 .shouty-textarea {
-	display: block;
-	width: 100%;
-	height: 125px;
-	padding: 6px 12px;
-	margin:0 0 10px 0;
-	font-size: 14px;
-	font-family: Arial, Helvetica, sans-serif;
-	line-height: 1.428571429;
-	color: #555;
-	vertical-align: middle;
-	background-color: #fff;
-	background-image: none;
-	border: 1px solid #ccc;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
-	-moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
-	box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    display: block;
+    width: 100%;
+    height: 125px;
+    padding: 6px 12px;
+    margin:0 0 10px 0;
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.428571429;
+    color: #555;
+    vertical-align: middle;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
 }
 
 .shouty-button {
-	float: right;
+    float: right;
 }
 
 .shouty-messages-title {
-	font-size: 1.25em;
+    font-size: 1.25em;
 }
 
 .shouty-user-avatar,
 .shouty-user-avatar-widget {
-	margin-right: 10px;
+    margin-right: 10px;
 }
 
 .shouty-user-avatar-widget {
-	float: left;
+    float: left;
 }
 
 .shouty-user-avatar img,
 .shouty-user-avatar-widget img {
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
 }
 
 .shouty-message {
-	display: block;
-	margin-bottom: 40px;
+    display: block;
+    margin-bottom: 40px;
 }
 
 .shouty-message-widget {
-	display: block;
-	margin: 10px 0;
+    display: block;
+    margin: 10px 0;
 }
 
 .shouty-message-content {
-	display: block;
-	margin: 10px 0;
+    display: block;
+    margin: 10px 0;
 }
 
 .shouty-message-content-widget {
@@ -85,15 +85,15 @@
 }
 
 .shouty-hidden {
-	display: none !important;
-	visibility: hidden;
+    display: none !important;
+    visibility: hidden;
 }
 
-.shouty-button-disabled, .shouty-button-more-disabled {
-	pointer-events: none;
-	cursor: not-allowed;
+.shouty-disabled {
+    pointer-events: none;
+    cursor: not-allowed;
 }
 
 .shouty-no-more {
-	margin: 0;
+    margin: 0;
 }

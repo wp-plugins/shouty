@@ -3,8 +3,8 @@ Contributors: gungorbudak
 Tags: AJAX, shoutbox, contact, comments, shortcode, widget, sidebar, page, Post, posts, honeypot
 Donate link: http://www.gungorbudak.com/buy-me-a-coffee
 Requires at least: 2.7
-Tested up to: 4.0
-Stable tag: 0.1.1
+Tested up to: 4.2.2
+Stable tag: 0.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -59,6 +59,9 @@ Absolutely.
 5. Individual shout
 
 == Changelog ==
+
+= 0.1.2 =
+Many fixes for broken Shouty functionalities, new Dashicon, Spanish translations
 
 = 0.1.1 =
 In WP 4.0, the shortcode in text widgets was not working after 0.1.0, this has been fixed in this version.
