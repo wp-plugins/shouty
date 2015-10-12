@@ -3,7 +3,7 @@
  * Plugin Name: Shouty
  * Plugin URI: http://www.gungorbudak.com/shouty
  * Description: Shouty is a shoutbox that makes your Wordpress site more shoutable.
- * Version: 0.1.2
+ * Version: 0.2.0
  * Author: Gungor Budak
  * Author URI: http://www.gungorbudak.com
  * License: GPL2
@@ -32,7 +32,7 @@ add_action( 'init', 'shouty_taxonomy_init');
 add_action( 'wp_enqueue_scripts', 'shouty_enqueue' );
 add_action( 'wp_ajax_shouty_share', 'shouty_share' );
 add_action( 'wp_ajax_shouty_show_more', 'shouty_show_more' );
-add_shortcode( 'shouty', 'shouty_short_code' );
+add_shortcode( 'shouty', 'shouty_shortcode' );
 add_filter('widget_text', 'do_shortcode');
 
 $allowed_html = array();
@@ -45,8 +45,8 @@ function shouty_localization_init() {
 }
 
 /*
-* Shouty create custom posty type: shout
-*/
+* Shouty create custom post type: shout
+ */
 function shouty_post_type_init() {
     $labels = array(
         'name'               => _x( 'Shouts', 'post type general name', 'shouty' ),
@@ -86,9 +86,8 @@ function shouty_post_type_init() {
 }
 
 /*
-* Shouty create custom taxonomy
-*/
-
+ * Shouty create custom taxonomy
+ */
 function shouty_taxonomy_init() {
     register_taxonomy(
         'shout_category',
@@ -116,10 +115,9 @@ function shouty_enqueue() {
 }
 
 /*
- * [shouty] short code
+ * [shouty] shortcode
  */
-function shouty_short_code( $atts ) {
-
+function shouty_shortcode($atts) {
     $a = shortcode_atts( array(
         'category' => '',
         'look' => 'post',
@@ -127,23 +125,43 @@ function shouty_short_code( $atts ) {
         'user_avatar_size' => 64,
         'form' => 'show',
         'messages' => 'show',
+        'messages_links' => 'show',
         'messages_title' => 'show',
         'messages_number' => 10,
         'messages_users_avatar_size' => 32,
+        'share_links' => 'show',
         'show_more_button' => 'show'
         ), $atts, 'shouty' );
+
+    $shouty = '<div class="shouty">'
+            . '<span class="shouty-options shouty-hidden"'
+            . 'data-category="' . $a['category']
+            . '" data-look="' . $a['look']
+            . '" data-share-links="' . $a['share_links']
+            . '" data-messages-links="' . $a['messages_links']
+            . '" data-messages-number="' . $a['messages_number']
+            . '" data-messages-users-avatar-size="' . $a['messages_users_avatar_size']
+            . '" data-messages="' . $a['messages']
+            . '" data-count="1"></span>';
 
     // Don't show user and form if not logged in
     if ( is_user_logged_in() ) {
 
         global $current_user;
         get_currentuserinfo();
-        $shouty = '<div class="shouty"><span class="shouty-options shouty-hidden" data-category="'. $a['category'] .'" data-look="'. $a['look'] .'" data-messages-number="'. $a['messages_number'] .'" data-messages-users-avatar-size="'. $a['messages_users_avatar_size'] .'" data-messages="'. $a['messages'] .'" data-count="1"></span>';
+
         if ($a['user'] == 'show') {
-            $shouty .= '<p class="shouty-user"><span class="shouty-user-avatar">' . get_avatar($current_user->ID, $a['user_avatar_size']) . '</span><span class="shouty-user-display-name">' . $current_user->display_name . '</span></p>';
+            $shouty .= '<p class="shouty-user">'
+                    . '<span class="shouty-user-avatar">'
+                    . get_avatar($current_user->ID, $a['user_avatar_size'])
+                    . '</span><span class="shouty-user-display-name">'
+                    . $current_user->display_name . '</span></p>';
         }
         if ($a['form'] == 'show') {
-            $shouty .= '<form class="group"><input class="shouty-email shouty-hidden" type="email" name="email" value=""><textarea class="shouty-textarea" name="text" placeholder="' . __('Enter your shout here', 'shouty') . '..."></textarea><input class="shouty-button" type="submit" value="' . __('Share', 'shouty') . '"></form>';
+            $shouty .= '<form class="group">'
+                    . '<input class="shouty-email shouty-hidden" type="email" name="email" value="">'
+                    . '<textarea class="shouty-textarea" name="text" placeholder="' . __('Enter your shout here', 'shouty') . '..."></textarea>'
+                    . '<input class="shouty-button" type="submit" value="' . __('Share', 'shouty') . '"></form>';
         }
 
     } else {
@@ -156,16 +174,24 @@ function shouty_short_code( $atts ) {
 
     if ($a['messages'] == 'show') {
         $shouty .= '<div class="shouty-messages">';
-        $shouts = shouty_get($a['category'], $a['messages_number'], 0, $a['messages_users_avatar_size'], $a['look']);
-        if (empty($shouts[0]) === false) {
-            $shouty .= $shouts[0];
+        $opts = array(
+            'category' => $a['category'],
+            'messages_number' => $a['messages_number'],
+            'offset' => 0,
+            'messages_users_avatar_size' => $a['messages_users_avatar_size'],
+            'share_links' => $a['share_links'],
+            'look' => $a['look']
+            );
+        $shouts = shouty_get($opts);
+        if (empty($shouts['shouts']) === false) {
+            $shouty .= $shouts['shouts'];
         } else {
             $shouty .= __('No shouts found.', 'shouty');
         }
         $shouty .= '</div>';
     }
 
-    if ($a['show_more_button'] == 'show' && $shouts[1] > $a['messages_number']) {
+    if ($a['show_more_button'] == 'show' && $shouts['count'] > $a['messages_number']) {
         $shouty .= '<a href="#" class="shouty-button-more">'. __('Show more', 'shouty') .'</a>';
     }
 
@@ -192,16 +218,23 @@ function shouty_share() {
         global $allowed_html;
         global $current_user;
         get_currentuserinfo();
-        $title = trim(sanitize_text_field(html_entity_decode($_POST['textarea'], ENT_QUOTES, 'UTF-8')));
-        $title = (strlen($title) > 50) ? substr($title, 0, 50).'...' : $title;
+
+        $messages_links = trim(sanitize_text_field(html_entity_decode($_POST['messages_links'], ENT_QUOTES, 'UTF-8')));
+        $messages_links = wptexturize($messages_links);
+
         $content = wp_kses((string)html_entity_decode(trim($_POST['textarea']), ENT_QUOTES, 'UTF-8'), $allowed_html);
-        $category = trim(sanitize_text_field(html_entity_decode($_POST['category'], ENT_QUOTES, 'UTF-8')));
-        $title = wptexturize($title);
         $content = wptexturize($content);
+
+        $content = shouty_control_links($content, $messages_links);
+        $content = shouty_control_breaks($content);
+
+        $title = (strlen($content) > 50) ? substr($content, 0, 50).'...' : $content;
+
+        $category = trim(sanitize_text_field(html_entity_decode($_POST['category'], ENT_QUOTES, 'UTF-8')));
         $category = wptexturize($category);
+
         // If content is given, proceed
         if (empty($content) === false) {
-            $content = shouty_make_links(nl2br($content));
             if (empty($category) === false) {
                 $category_object = get_term_by( 'slug', $category, 'shout_category' );
                 $category_id = (int)$category_object->term_id;
@@ -220,30 +253,61 @@ function shouty_share() {
 
         $messages_number = (int)$_POST['messages_number'];
         $messages_users_avatar_size = (int)$_POST['messages_users_avatar_size'];
+
+        $share_links = trim(sanitize_text_field(html_entity_decode($_POST['share_links'], ENT_QUOTES, 'UTF-8')));
+        $share_links = wptexturize($share_links);
+
         $look = trim(sanitize_text_field(html_entity_decode($_POST['look'], ENT_QUOTES, 'UTF-8')));
         $look = wptexturize($look);
 
-        $latest_shouts = shouty_get($category, $messages_number, 0, $messages_users_avatar_size, $look);
-        echo json_encode(array($latest_shouts[0], $latest_shouts[1], '<a href="#" class="shouty-button-more">'. __('Show more', 'shouty') .'</a>'));
-        die();
+        $opts = array(
+            'category' => $category,
+            'messages_number' => $messages_number,
+            'offset' => 0,
+            'messages_users_avatar_size' => $messages_users_avatar_size,
+            'share_links' => $share_links,
+            'look' => $look
+            );
+        $shouts = shouty_get($opts);
+
+        echo json_encode(array(
+                            'shouts'   => $shouts['shouts'],
+                            'count'    => $shouts['count'],
+                            'btn_more' => '<a href="#" class="shouty-button-more">'. __('Show more', 'shouty') .'</a>'
+                            ));
     }
+    die();
 }
 
 /*
- * Show more
+ * Show more functionality
  */
-
 function shouty_show_more() {
-    $messages_number = (int)$_POST['messages_number'];
-    $messages_users_avatar_size = (int)$_POST['messages_users_avatar_size'];
-    $factor = (int)$_POST['factor'];
     $category = sanitize_text_field(html_entity_decode($_POST['category'], ENT_QUOTES, 'UTF-8'));
-    $look = sanitize_text_field(html_entity_decode($_POST['look'], ENT_QUOTES, 'UTF-8'));
     $category = wptexturize($category);
+
+    $messages_number = (int)$_POST['messages_number'];
+    $factor = (int)$_POST['factor'];
+
+    $messages_users_avatar_size = (int)$_POST['messages_users_avatar_size'];
+
+    $share_links = sanitize_text_field(html_entity_decode($_POST['share_links'], ENT_QUOTES, 'UTF-8'));
+    $share_links = wptexturize($share_links);
+
+    $look = sanitize_text_field(html_entity_decode($_POST['look'], ENT_QUOTES, 'UTF-8'));
     $look = wptexturize($look);
 
-    $shouts = shouty_get($category, $messages_number, $factor*$messages_number, $messages_users_avatar_size, $look);
-    if (empty($shouts[0]) === false) {
+    $opts = array(
+        'category' => $category,
+        'messages_number' => $messages_number,
+        'offset' => $factor * $messages_number,
+        'messages_users_avatar_size' => $messages_users_avatar_size,
+        'share_links' => $share_links,
+        'look' => $look
+        );
+    $shouts = shouty_get($opts);
+
+    if (empty($shouts['shouts']) === false) {
         echo json_encode($shouts);
     } else {
         echo '<p class="shouty-no-more">'. __('No more shouts', 'shouty') .'</p>';
@@ -254,11 +318,11 @@ function shouty_show_more() {
 /*
  * Get shouts
  */
-function shouty_get( $category, $posts_per_page, $offset, $messages_users_avatar_size, $look ) {
+function shouty_get($opts) {
     $args = array(
-        'posts_per_page'   => $posts_per_page,
-        'offset'           => $offset,
-        'shout_category'   => $category,
+        'posts_per_page'   => $opts['messages_number'],
+        'offset'           => $opts['offset'],
+        'shout_category'   => $opts['category'],
         'orderby'          => 'post_date',
         'order'            => 'DESC',
         'include'          => '',
@@ -273,7 +337,7 @@ function shouty_get( $category, $posts_per_page, $offset, $messages_users_avatar
     );
 
     $count_shouts = count(get_posts(array(
-        'shout_category'   => $category,
+        'shout_category'   => $opts['category'],
         'post_type'        => 'shout',
         'post_status'      => 'publish',
         'numberposts'      => -1
@@ -284,28 +348,57 @@ function shouty_get( $category, $posts_per_page, $offset, $messages_users_avatar
         $shouts_list = '';
         foreach ($shouts as $shout) {
             $user = get_userdata( $shout->post_author );
-            if ($look == 'post') {
-                $shouts_list .= '<div class="shouty-message">';
-                $shouts_list .= '<span class="shouty-user-avatar">'. get_avatar($user->ID, $messages_users_avatar_size) .'</span>';
-                $shouts_list .= '<strong>'. $user->display_name .'</strong>';
-                $shouts_list .= '<span class="shouty-message-content">'. $shout->post_content .'</span>';
-                $shouts_list .= '<span>'. get_the_date('j M, H:i', $shout->ID) . ' &ndash; <a href="'. get_permalink( $shout->ID ) . '">' . __('Read more & comment', 'shouty') . ' &rarr;</a></span>';
-                $shouts_list .= '</div>';
-            } elseif ($look == 'widget') {
-                $shouts_list .= '<div class="shouty-message-widget group">';
-                $shouts_list .= '<span class="shouty-user-avatar-widget">'. get_avatar($user->ID, $messages_users_avatar_size) .'</span>';
-                $shouts_list .= '<span class="shouty-message-content-widget"><a href="' . get_permalink( $shout->ID ) . '">' . $shout->post_title . '</a><br>' . get_the_date('j M, H:i', $shout->ID) . '</span>';
-                $shouts_list .= '</div>';
+            $share_links = '';
+            if ($opts['share_links'] == 'show') {
+                $share_links = '<a href="https://www.facebook.com/sharer.php?u=' . get_permalink( $shout->ID ) . '" title="' . __('Share this on Facebook', 'shouty') . '" target="_blank">' . __('Share', 'shouty') . '</a> &middot; '
+                             . '<a href="https://twitter.com/share?text=' . $shout->post_title . '&url=' . get_permalink( $shout->ID ) . '" title="' . __('Tweet about this on Twitter', 'shouty') . '" target="_blank">' . __('Tweet', 'shouty') . '</a> &middot; ';
+            }
+            if ($opts['look'] == 'post') {
+                $shouts_list .= '<div class="shouty-message">'
+                             . '<span class="shouty-user-avatar">'. get_avatar($user->ID, $opts['messages_users_avatar_size']) .'</span>'
+                             . '<strong>'. $user->display_name .'</strong>'
+                             . '<span class="shouty-message-content">'. $shout->post_content .'</span>'
+                             . '<span>'
+                             . $share_links
+                             . '<abbr title="'. get_the_date('D, d F Y H:i:s', $shout->ID) . '">'. get_the_date('j M, H:i', $shout->ID) . '</abbr> &middot; <a href="'. get_permalink( $shout->ID ) . '" title="' . __('Read more and comment about this', 'shouty') . '">' . __('Read more & comment', 'shouty') . ' &rarr;</a>'
+                             . '</span>'
+                             . '</div>';
+            } elseif ($opts['look'] == 'widget') {
+                $shouts_list .= '<div class="shouty-message-widget group">'
+                             . '<div class="shouty-user-avatar-widget" title="'. $user->display_name .'">'. get_avatar($user->ID, $opts['messages_users_avatar_size']) .'</div>'
+                             . '<div class="shouty-message-content-widget">'
+                             . '<strong>'. $user->display_name .'</strong> '
+                             . '<a href="' . get_permalink( $shout->ID ) . '" title="' . __('Read more and comment about this', 'shouty') . '">' . $shout->post_title . '</a><br>'
+                             . $share_links
+                             . '<abbr title="'. get_the_date('D, d F Y H:i:s', $shout->ID) . '">'. get_the_date('j M, H:i', $shout->ID) . '</abbr>'
+                             . '</div>'
+                             . '</div>';
             }
         }
-        return array($shouts_list, $count_shouts);
+        return array(
+                     'shouts' => $shouts_list,
+                     'count'  => $count_shouts
+                     );
     } else {
         return null;
     }
 }
 
-function shouty_make_links( $url ) {
-    return preg_replace('"\b(https?://[a-zA-Z0-9-./_+?=&#!]+)"', '<a href="$1" target="_blank">$1</a>', $url);
+/*
+ * Makes sure there are not more than two breaks
+ */
+function shouty_control_breaks($content) {
+    $break_pattern = '#(<br\s*\/?>\s*){3,}#i';
+    return preg_replace($break_pattern, '<br /><br />', nl2br($content));
+}
+
+/*
+ * Generates links from given URL
+ * or if set removes them from the content
+ */
+function shouty_control_links($url, $messages_links='show') {
+    $url_pattern = '"\b(https?://[a-zA-Z0-9-./_+?=&#!]+)"';
+    return ($messages_links == 'show') ? preg_replace($url_pattern, '<a href="$1" target="_blank">$1</a>', $url): preg_replace($url_pattern, '', $url);
 }
 
 ?>

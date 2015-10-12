@@ -3,8 +3,8 @@ Contributors: gungorbudak
 Tags: AJAX, shoutbox, contact, comments, shortcode, widget, sidebar, page, Post, posts, honeypot
 Donate link: http://www.gungorbudak.com/buy-me-a-coffee
 Requires at least: 2.7
-Tested up to: 4.2.2
-Stable tag: 0.1.2
+Tested up to: 4.3
+Stable tag: 0.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -29,8 +29,10 @@ Insert the shortcode below into any post/page or widget.
 * form (show | hide; default: show; Displays Shouty form and the share button)
 * messages_title (show | hide; default: show; Displays a title at the tops of the shouts)
 * messages (show | hide; default: show; Displays shouts)
+* messages_links (show | hide; default: show; Displays URLs in the shout)
 * messages_number (a number; default: 10; The number of shouts to be viewed in one time)
 * messages_users_avatar_size (in px; default: 32; Changes size of the user avatar on the left of the each shout)
+* share_links (show | hide; default: show; Displays Facebook share and Twitter tweet links)
 * show_more_button (show | hide; default: show; Displays show more button at the end of the shouts)
 
 The plugin is written in English and has been translated into Turkish by [myself](http:/www.gungorbudak.com/ "Güngör Budak")
@@ -59,6 +61,18 @@ Absolutely.
 5. Individual shout
 
 == Changelog ==
+
+= 0.2.0 =
+* Shortcode configuration to allow or prevent URLs in shouts, defaults to allowing them.
+* Facebook share and Twitter tweet links added to shouts and made configurable through shortcode, defaults to showing them.
+* User display name in front of the shout in widget layout.
+* Better widget layout by taking user display name, shout, share links and time on the right, and avatar on the left.
+* Representation of time for shouts improved.
+* More than two new lines in shouts now being prevented in the backend.
+* Many improvements in the code.
+
+= 0.1.3 =
+Fixing extra div closing tag for not registered users. Tests for 4.3.
 
 = 0.1.2 =
 Many fixes for broken Shouty functionalities, new Dashicon, Spanish translations
