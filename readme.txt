@@ -4,7 +4,7 @@ Tags: AJAX, shoutbox, contact, comments, shortcode, widget, sidebar, page, Post,
 Donate link: http://www.gungorbudak.com/buy-me-a-coffee
 Requires at least: 2.7
 Tested up to: 4.3
-Stable tag: 0.2.0
+Stable tag: 0.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,6 +61,9 @@ Absolutely.
 5. Individual shout
 
 == Changelog ==
+
+= 0.2.1 =
+Missing additional styles also added
 
 = 0.2.0 =
 * Shortcode configuration to allow or prevent URLs in shouts, defaults to allowing them.
